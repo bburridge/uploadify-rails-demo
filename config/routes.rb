@@ -2,5 +2,5 @@ UploadPrototype::Application.routes.draw do
   resources :items
   resources :item_assets, :only => [:create, :destroy]
   
-  root "/items"
+  root to: "items#index"
 end
