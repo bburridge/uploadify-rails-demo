@@ -10,7 +10,6 @@ class ItemsController < ApplicationController
   end
   
   def new
-    @item = Item.create
   end
   
   def edit

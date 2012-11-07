@@ -47,14 +47,12 @@
 </script>
 
 <div id="photos">
-  <% unless @item.new_record? %>
-      <%= hidden_field_tag 'item_asset[item_id]' %>
-      <div id="queue" style="width: 200px;text-align:center;border: thin solid black">drop files here</div>
-      <%= fields_for ItemAsset.new do |f| %>
-        <%= f.file_field :image, :rel => item_assets_path(@item) %>
-      <% end %>
-      <a id="upload_file_button" style="display:none;" href="javascript:beginUpload();">Upload Files</a>
-  <% end %>
+    <%= hidden_field_tag 'item_asset[item_id]' %>
+    <div id="queue" style="width: 200px;text-align:center;border: thin solid black">drop files here</div>
+    <%= fields_for ItemAsset.new do |f| %>
+      <%= f.file_field :image, :rel => item_assets_path(@item) %>
+    <% end %>
+    <a id="upload_file_button" style="display:none;" href="javascript:beginUpload();">Upload Files</a>
 </div>
 
 
