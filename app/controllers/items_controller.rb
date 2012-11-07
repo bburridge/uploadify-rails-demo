@@ -10,6 +10,11 @@ class ItemsController < ApplicationController
   end
   
   def new
+    if params[:alt].present?
+      render :template => "items/new_alt"
+    else
+      render :template => "items/new"
+    end
   end
   
   def edit
