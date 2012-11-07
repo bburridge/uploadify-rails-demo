@@ -1,0 +1,2 @@
+module ItemAssetsHelper
+end

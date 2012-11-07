@@ -1,0 +1,49 @@
+<script type="text/javascript">
+  $(function() {
+      $('#item_asset_image').uploadifive({
+          'uploadScript' : '<%= item_assets_path() %>',
+          'fileType'     : 'image',
+          'fileObjName'  : 'item_asset[image]',
+          'formData'     : {'item_id' : 'someValue'},
+          'multi'        : true,
+          'auto'         : false,
+          'onUploadComplete' : function(file, data) {
+              console.log('The file ' + file.name + ' uploaded successfully.');
+              $('#photos').append(data);
+          },
+          'onAddQueueItem' : function(file) {
+              console.log('The file ' + file.name + ' was added to the queue!');
+              $('#upload_file_button').show();
+          },
+          'onQueueComplete'   : function(uploads) {
+              console.log(uploads.successful + ' files were uploaded successfully.');
+              item_asset_item_id
+          }
+      });
+  });
+  
+  function beginUpload() {
+    $.post('<%= items_path() %>', 
+       {},
+       function(data_gallery) {
+         console.log("Received data from creating a gallery: " + $.parseJSON(data_gallery));
+         $('#item_id').val($.parseJSON(data_gallery).id);
+         $("form").attr("action", '/galleries/' + $.parseJSON(data_gallery).id + '/photos');
+         $('#item_asset_image').uploadifive('upload');
+       }
+    );
+  }
+</script>
+    
+<div id="photos">
+  <%= render :partial => 'item_assets/asset', :collection => ItemAsset.all %>
+  <% unless @item.new_record? %>
+      <%= fields_for ItemAsset.new do |f| %>
+        <%= f.hidden_field :item_id %>
+        <%= f.file_field :image, :rel => item_assets_path(@item) %>
+      <% end %>
+      <a id="upload_file_button" style="display:none;" href="javascript:beginUpload();">Upload Files</a>
+  <% end %>
+</div>
+
+
