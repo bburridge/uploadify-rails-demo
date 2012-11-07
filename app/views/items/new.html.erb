@@ -4,7 +4,6 @@
           'uploadScript' : '<%= item_assets_path() %>',
           'fileType'     : 'image',
           'fileObjName'  : 'item_asset[image]',
-          'formData'     : {'item_id' : 'someValue'},
           'multi'        : true,
           'auto'         : false,
           'onUploadComplete' : function(file, data) {
@@ -26,9 +25,11 @@
     $.post('<%= items_path() %>', 
        {},
        function(data_gallery) {
-         console.log("Received data from creating a gallery: " + $.parseJSON(data_gallery));
-         $('#item_id').val($.parseJSON(data_gallery).id);
-         $("form").attr("action", '/galleries/' + $.parseJSON(data_gallery).id + '/photos');
+         console.log("Received data from creating a gallery: " + $.parseJSON(data_gallery).id);
+         $('#item_asset_item_id').val($.parseJSON(data_gallery).id);
+         
+         console.log("Item id: " +  $('item_asset_item_id').val());
+         $('#item_asset_image').data('uploadifive').settings.formData = { 'item_asset[item_id]' : $('#item_asset_item_id').val() };
          $('#item_asset_image').uploadifive('upload');
        }
     );
@@ -36,10 +37,9 @@
 </script>
     
 <div id="photos">
-  <%= render :partial => 'item_assets/asset', :collection => ItemAsset.all %>
   <% unless @item.new_record? %>
+      <%= hidden_field_tag 'item_asset[item_id]' %>
       <%= fields_for ItemAsset.new do |f| %>
-        <%= f.hidden_field :item_id %>
         <%= f.file_field :image, :rel => item_assets_path(@item) %>
       <% end %>
       <a id="upload_file_button" style="display:none;" href="javascript:beginUpload();">Upload Files</a>

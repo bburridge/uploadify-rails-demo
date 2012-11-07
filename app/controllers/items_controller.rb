@@ -1,6 +1,14 @@
 class ItemsController < ApplicationController
   skip_before_filter  :verify_authenticity_token, :only => [:create, :update]
   
+  def index
+    @items = Item.all
+  end
+  
+  def show
+    @item = Item.find(params[:id])
+  end
+  
   def new
     @item = Item.create
   end
