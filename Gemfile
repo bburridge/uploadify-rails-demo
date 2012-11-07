@@ -11,6 +11,7 @@ gem 'haml', '3.1.6'
 gem 'rmagick'
 gem "fog"
 gem 'thin'
+gem 'simple_form'
 
 # Gems used only for assets and not required
 # in production environments by default.

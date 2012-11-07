@@ -13,6 +13,11 @@ class ItemsController < ApplicationController
     @item = Item.create
   end
   
+  def edit
+    @item = Item.find(params[:id])
+    render :layout => nil
+  end
+  
   def create
     @item = Item.new(params[:item])
     # @item.user = current_user # set the gallery to be the current user
