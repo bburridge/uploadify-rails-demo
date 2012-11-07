@@ -10,6 +10,7 @@ gem 'carrierwave'
 gem 'haml', '3.1.6'
 gem 'rmagick'
 gem "fog"
+gem 'thin'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -39,7 +40,3 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 
-
-group :development do
-  gem 'thin'
-end
