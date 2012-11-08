@@ -17,7 +17,8 @@
           },
           'onQueueComplete'   : function(uploads) {
               console.log(uploads.successful + ' files were uploaded successfully.');
-              
+              $('#queue').hide();
+              $('#uploadifive-item_asset_image').hide();
               // call the server using ajax, and get the editor form for the item so the user can enter the title and description
               get_url = "/items/" + $('#item_asset_item_id').val() + "/edit";
               $.get(get_url, 
